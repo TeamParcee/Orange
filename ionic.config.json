@@ -1,0 +1,7 @@
+{
+  "name": "Orange",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
