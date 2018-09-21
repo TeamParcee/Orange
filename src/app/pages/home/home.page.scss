@@ -1,0 +1,22 @@
+.text_chat{
+    background-color: rgb(223, 223, 223);
+    padding: 10px;
+    border-radius: 20px;
+}
+.toolbar-background {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    border-width: 0px;
+    border-style: var(--border-style);
+    border-color: var(--border-color);
+    background: white !important;
+    contain: strict;
+    opacity: var(--opacity);
+    z-index: -1;
+    pointer-events: none;
+}

@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button ></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Adiontae's House
+      </ion-title>
+      <ion-buttons slot="end">
+          <ion-button>
+            23
+            <ion-icon slot="icon-only" name="people"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content padding>
+  <ion-list lines="none">
+    <ion-item>
+        <ion-avatar>
+          <img src="../../../assets/imgs/photo_anonymous.png">
+        </ion-avatar>
+        <p class="text_chat">
+            Where are you
+          </p>
+    </ion-item>
+    <ion-item>
+        <ion-avatar>
+          <img src="../../../assets/imgs/photo_anonymous.png">
+        </ion-avatar>
+        <p class="text_chat">
+            Where are you
+          </p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+<ion-footer >
+  <ion-toolba >
+      <ion-buttons slot="start">
+          <ion-button (click)="onClick()">
+            <ion-icon slot="icon-only" name="camera"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+    <ion-input ></ion-input>
+    <ion-buttons slot="end">
+      <ion-button (click)="onClick()">
+        <ion-icon slot="icon-only" name="send"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
