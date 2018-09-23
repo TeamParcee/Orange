@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="home"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Checkdn Users</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  
+  <ion-content>
+    <ion-row>
+      <ion-col (click)="viewProfilePage(user.uid)" *ngFor="let user of users" size="4">
+        <div style="width: 115px">
+          <img height="115" width="115" src="{{user?.photoURL}}">
+          <p text-center>{{user?.displayName}}</p>
+        </div>
+  
+      </ion-col>
+    </ion-row>
+  
+  </ion-content>

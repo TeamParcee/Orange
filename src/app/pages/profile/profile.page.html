@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button  style="color:white" ></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Profile
+      </ion-title>
+
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content padding>
+  <ion-list   lines="none">
+    <ion-item>
+      <ion-thumbnail slot="start">
+          <p *ngIf="!user" class="skeleton"></p>
+        <ion-img src="{{user?.photoURL}}"></ion-img>
+      </ion-thumbnail>
+      <ion-label>{{user?.displayName}}</ion-label>
+      <p *ngIf="!user" class="skeleton"></p>
+    </ion-item>
+  </ion-list>
+  <ion-button *ngIf="!user?.facebookId" fill="clear" (click)="linkFacebook()" expand="block">Link Facebook</ion-button>
+  <ion-button fill="clear"  (click)="editPage()" expand="block">Edit Profile</ion-button>
+  <ion-button fill="clear" (click)="signOut()"  expand="block">Sign Out</ion-button>
+  <ion-button fill="clear" (click)="deleteAccount()"  expand="block">Delete Account</ion-button>
+</ion-content>

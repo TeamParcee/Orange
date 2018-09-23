@@ -1,52 +1,60 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button ></ion-menu-button>
-      </ion-buttons>
-      <ion-title>
-        Adiontae's House
-      </ion-title>
-      <ion-buttons slot="end">
-          <ion-button>
-            23
-            <ion-icon slot="icon-only" name="people"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button style="color:white"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <p *ngIf="!place" class="skeleton"></p>
+      {{place?.name}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="viewCheckdnUsers()">
+        {{place?.users}}
+        <ion-icon slot="icon-only" name="people"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content padding>
+  <div *ngIf="!place">
+    <p class="skeleton"></p>
+    <p class="skeleton"></p>
+    <p class="skeleton"></p>
+  </div>
+
+  <div style="display:none" #map id="map"></div>
   <ion-list lines="none">
-    <ion-item>
-        <ion-avatar>
-          <img src="../../../assets/imgs/photo_anonymous.png">
-        </ion-avatar>
-        <p class="text_chat">
-            Where are you
-          </p>
-    </ion-item>
-    <ion-item>
-        <ion-avatar>
-          <img src="../../../assets/imgs/photo_anonymous.png">
-        </ion-avatar>
-        <p class="text_chat">
-            Where are you
-          </p>
-    </ion-item>
+        <ion-item style="margin-bottom: 15px"  *ngFor="let f of feed">
+            <ion-avatar>
+              <img src="../../../assets/imgs/photo_anonymous.png">
+            </ion-avatar>
+            <div style="max-width: 90%" text-wrap class="text_chat"> {{f.text}} <br>
+              <img style="height:100px; width:100px" src="{{img}}" *ngFor="let img of f.imgs">
+            </div>
+          </ion-item>
+   
+
+
   </ion-list>
 
+
+
 </ion-content>
-<ion-footer >
-  <ion-toolba >
-      <ion-buttons slot="start">
-          <ion-button (click)="onClick()">
-            <ion-icon slot="icon-only" name="camera"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-    <ion-input ></ion-input>
+<ion-footer>
+  <ion-toolbar>
+    <div style=" background-color: white; padding: 5px; border-radius: 25px; 
+    width: 90%; margin:auto" contenteditable="true" id="textbox" clearInput="true">
+
+    </div>
+    <ion-buttons slot="start">
+      <ion-button (click)="getPhoto()">
+        <ion-icon style="color: white" slot="icon-only" name="image"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="onClick()">
-        <ion-icon slot="icon-only" name="send"></ion-icon>
+      <ion-button (click)="send()">
+        <ion-icon style="color: white" slot="icon-only" name="send"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
