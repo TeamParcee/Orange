@@ -29,6 +29,7 @@
     "@ionic/angular": "4.0.0-beta.7",
     "@ionic/storage": "^2.2.0",
     "cordova-browser": "5.0.4",
+    "cordova-ios": "4.5.5",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-geolocation": "^4.0.1",
@@ -82,7 +83,8 @@
       "cordova-plugin-camera": {}
     },
     "platforms": [
-      "browser"
+      "browser",
+      "ios"
     ]
   }
 }

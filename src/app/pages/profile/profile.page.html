@@ -11,18 +11,23 @@
   </ion-header>
 
 <ion-content padding>
-  <ion-list   lines="none">
-    <ion-item>
-      <ion-thumbnail slot="start">
           <p *ngIf="!user" class="skeleton"></p>
-        <ion-img src="{{user?.photoURL}}"></ion-img>
-      </ion-thumbnail>
-      <ion-label>{{user?.displayName}}</ion-label>
-      <p *ngIf="!user" class="skeleton"></p>
-    </ion-item>
-  </ion-list>
-  <ion-button *ngIf="!user?.facebookId" fill="clear" (click)="linkFacebook()" expand="block">Link Facebook</ion-button>
-  <ion-button fill="clear"  (click)="editPage()" expand="block">Edit Profile</ion-button>
-  <ion-button fill="clear" (click)="signOut()"  expand="block">Sign Out</ion-button>
-  <ion-button fill="clear" (click)="deleteAccount()"  expand="block">Delete Account</ion-button>
+        <ion-img style="width: 100%; height: 200px" src="{{user?.photoURL}}"></ion-img>
+      <h5 text-center>{{user?.displayName}}</h5>
+      <p *ngIf="!user" class="skeleton"></p><br>
+      <p text-center *ngIf="!user?.facebookId"  style="color: #3b5998; font-weight: bold; font-size: 12px"  (click)="linkFacebook()" >Link Facebook</p>
+
+  <ion-row>
+    <ion-col>
+        <ion-button fill="clear"  (click)="editPage()" expand="block">Edit Profile</ion-button>
+    </ion-col>
+    <ion-col>
+        <ion-button fill="clear" (click)="signOut()"  expand="block">Sign Out</ion-button>
+      </ion-col>
+    <ion-col>
+        <ion-button fill="clear" (click)="deleteAccount()"  expand="block">Delete Account</ion-button>
+      </ion-col>
+  </ion-row>
+  
+
 </ion-content>
