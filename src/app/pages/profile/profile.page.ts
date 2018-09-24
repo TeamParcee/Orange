@@ -23,6 +23,8 @@ export class ProfilePage implements OnInit {
   }
 
   user;
+  edit; 
+  
   signOut(){
     firebase.auth().signOut().then(()=>{
     })
@@ -44,5 +46,9 @@ export class ProfilePage implements OnInit {
   }
   editPage(){
     this.navCtrl.navigateForward("edit-profile")
+  }
+  save(){
+    this.fs.updateUser("users/" + this.user.uid, this.user);
+    this.edit = false;
   }
 }
