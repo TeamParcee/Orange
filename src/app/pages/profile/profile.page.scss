@@ -1,3 +1,21 @@
 ion-input{
     text-align: right
 }
+
+.edit-btn{
+    
+        background-color: rgba(255, 255, 255, .8);
+        border-top-left-radius: 4px;
+        bottom: 0;
+        min-width: 50px;
+        padding: 4px 10px;
+        position: absolute;
+        right: 0;
+    
+}
+profile-img{
+    background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    width: 151px;
+    height: 151px;
+}

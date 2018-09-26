@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { AuthService } from '../../services/auth/auth.service';
 import { NavController } from '@ionic/angular';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -12,6 +13,7 @@ import { NavController } from '@ionic/angular';
 export class ProfilePage implements OnInit {
 
   constructor(
+    private camera: Camera,
     private navCtrl: NavController,
     private auth: AuthService,
     private fs: FirestoreService,
@@ -22,9 +24,13 @@ export class ProfilePage implements OnInit {
     this.getRedirect();
   }
 
+  fbExample;
+  instaExample;
   user;
   edit; 
-  
+  photoURL;
+  coverURL;
+
   signOut(){
     firebase.auth().signOut().then(()=>{
     })
@@ -50,5 +56,24 @@ export class ProfilePage implements OnInit {
   save(){
     this.fs.updateUser("users/" + this.user.uid, this.user);
     this.edit = false;
+  }
+
+  getCoverPhoto() {
+    let options: CameraOptions = {
+      quality: 100,
+      targetHeight: 100,
+      allowEdit: true,
+      targetWidth: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    }
+    this.camera.getPicture(options).then((imageData)=>{
+      let img = document.getElementById("coverPic");
+      img.style.backgroundImage = 'data:image/jpeg;base64,' + imageData;
+      console.log(img.style.backgroundImage)
+    })
+
   }
 }

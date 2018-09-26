@@ -6,38 +6,38 @@
       <ion-title>
         Profile
       </ion-title>
-
+      <ion-buttons slot="end">
+        <ion-button style="color: white">
+          <ion-icon slot="icon-only" name="settings"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
-<ion-content padding>
-          <p *ngIf="!user" class="skeleton"></p>
-        <ion-img style="width: 100%; height: 200px" src="{{user?.photoURL}}"></ion-img>
-        <p *ngIf="edit" text-center></p>
-        <label text-center for="pic">
-            Change Picture
-        </label>
-        <ion-label text-center>{{user?.displayName}}</ion-label>
-        <input style="display:none" (change)="getPicture($event)" name="pic" id="pic" type="file">
+<ion-content>
+  <div style="position: relative;">
+    <div id="coverPic" style="background: lightgrey; width: 100%; height: 200px; background-size: 100% 100%">
+        <label (click)="getCoverPhoto()" class="edit-btn">edit</label>
+    </div>
+  </div>
+  <div text-center>
+      <div style="display: inline-block; position: relative; margin: -25% 0px auto;">
+          <div  id="profilePic" style="background: lightgrey; height: 151px; width: 151px; border: 2px solid white">
+              <label class="edit-btn" for="pic">edit</label>
+            </div>
+      </div>
+  </div>
+       
+          
+        <input style="display:none"  name="pic" id="pic" type="file">
+        <input style="display:none"  name="cover" id="cover" type="file">
       <h5 text-center>{{user?.displayName}}</h5>
-      <p text-center *ngIf="edit">edit name</p>
       <p *ngIf="!user" class="skeleton"></p><br>
-      <p text-center *ngIf="!user?.facebookId"  style="color: #3b5998; font-weight: bold; font-size: 12px"  (click)="linkFacebook()" >Link Facebook</p>
-
-  <ion-row>
-    <ion-col>
-        <ion-button fill="clear" *ngIf="!edit" (click)="edit = true" expand="block">Edit Profile</ion-button>
-        <ion-button fill="clear" *ngIf="edit" (click)="save()" expand="block">Save Profile</ion-button>
-    </ion-col>
-    <ion-col>
-        <ion-button fill="clear" (click)="signOut()"  expand="block">Sign Out</ion-button>
-      </ion-col>
-    <ion-col>
-        <ion-button fill="clear" (click)="deleteAccount()"  expand="block">Delete Account</ion-button>
-      </ion-col>
-  </ion-row>
-  
   <ion-item-group>
+    <ion-item-divider>Social Media
+      <p *ngIf="!edit" (click)="edit = true" slot="end">edit</p>
+      <p *ngIf="edit" (click)="save()" slot="end">save</p>
+    </ion-item-divider>
       <ion-item>
           <ion-label>Facebook</ion-label>
           <ion-input [disabled]="!edit" [(ngModel)]="user.facebook" (focus)="fbExample = true" (ionBlur)="fbExample = false"></ion-input>
@@ -45,9 +45,10 @@
        <p text-center *ngIf="fbExample">https://facebook.com/{{user.facebook}}</p>
        <ion-item>
           <ion-label>Instagram</ion-label>
-          <ion-input [disabled]="!edit" [(ngModel)]="user.instagram" (focus)="instaExample = true" (ionBlur)="instaExample = false"></ion-input>
+          <ion-input  [disabled]="!edit"  [(ngModel)]="user.instagram" (focus)="instaExample = true" (ionBlur)="instaExample = false"></ion-input>
        </ion-item>
        <p text-center *ngIf="instaExample">https://instagram.com/{{user.instagram}}</p>
+       <ion-item></ion-item>
   </ion-item-group>
  
 
