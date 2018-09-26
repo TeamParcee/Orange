@@ -1,3 +1,4 @@
+import { NavController } from '@ionic/angular';
 import { FirestoreService } from './../../services/firestore/firestore.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -13,6 +14,7 @@ import 'firebase/firestore';
 export class CheckdnUsersPage implements OnInit {
 
   constructor(
+    private navCtrl: NavController,
     private fs: FirestoreService,
     private ls: Storage,
     private router: Router,
@@ -38,6 +40,6 @@ export class CheckdnUsersPage implements OnInit {
   }
 
   viewProfilePage(uid){
-    this.router.navigate(['view-profile', uid]);
+    this.router.navigate(['view-profile', uid,]);
   }
 }

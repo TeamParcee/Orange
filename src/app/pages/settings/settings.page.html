@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="profile"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Settings</ion-title>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item (click)="signOut()">
+      <ion-icon slot="start" name="log-out"></ion-icon>
+      <ion-label>Log Out</ion-label>
+    </ion-item>
+    <ion-item  (click)="confirmDelete()" >
+        <ion-icon color="danger" slot="start" name="trash"></ion-icon>
+      <ion-label>Delete Account</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { AuthService } from '../../services/auth/auth.service';
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { SettingsPage } from '../settings/settings.page';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -22,6 +23,10 @@ export class ProfilePage implements OnInit {
   async ngOnInit() {
     this.user = await this.fs.getCurrentUser();
     this.getRedirect();
+    let imgCover = document.getElementById("coverPic");
+    imgCover.style.background = "url(" + this.user.coverURL + ") no-repeat center";
+    let imgProfile = document.getElementById("profilePic");
+    imgProfile.style.background = "url(" + this.user.photoURL + ") no-repeat center";
   }
 
   fbExample;
@@ -30,11 +35,9 @@ export class ProfilePage implements OnInit {
   edit; 
   photoURL;
   coverURL;
-
-  signOut(){
-    firebase.auth().signOut().then(()=>{
-    })
-  }
+  editCover;
+  editPhoto;
+ 
   linkFacebook(){
     this.auth.linkFacebook();
   }
@@ -47,9 +50,7 @@ export class ProfilePage implements OnInit {
       }
     })
   }
-  deleteAccount(){
-    this.auth.deleteAccount();
-  }
+ 
   editPage(){
     this.navCtrl.navigateForward("edit-profile")
   }
@@ -59,21 +60,68 @@ export class ProfilePage implements OnInit {
   }
 
   getCoverPhoto() {
+    this.editCover = true;
     let options: CameraOptions = {
       quality: 100,
-      targetHeight: 100,
+      targetHeight: 200,
       allowEdit: true,
-      targetWidth: 100,
+      targetWidth: 200,
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
     }
     this.camera.getPicture(options).then((imageData)=>{
+      this.coverURL = 'data:image/jpeg;base64,' + imageData;
+      let url = "url(" + 'data:image/jpeg;base64,' + imageData + ") no-repeat center";
       let img = document.getElementById("coverPic");
-      img.style.backgroundImage = 'data:image/jpeg;base64,' + imageData;
-      console.log(img.style.backgroundImage)
+      img.style.background = url;
     })
 
   }
+  getProfilePhoto() {
+    this.editPhoto = true;
+    let options: CameraOptions = {
+      quality: 100,
+      targetHeight: 151,
+      allowEdit: true,
+      targetWidth: 151,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    }
+    this.camera.getPicture(options).then((imageData)=>{
+      this.photoURL = 'data:image/jpeg;base64,' + imageData;
+      let url = "url(" + 'data:image/jpeg;base64,' + imageData + ") no-repeat center";
+      let img = document.getElementById("profilePic");
+      img.style.background = url;
+    })
+
+  }
+  cancelCover(){
+      let img = document.getElementById("coverPic");
+      img.style.background = this.user.coverPhoto;
+      this.editCover = false;
+  }
+  cancelPhoto(){
+    let img = document.getElementById("profilePic");
+    img.style.background = this.user.photoURL;
+    this.editPhoto = false;
+}
+saveCover(){
+  this.user.coverPhoto = this.coverURL;
+  this.fs.updateUser("users/" + this.user.uid, {
+    coverURL: this.coverURL
+  })
+  this.editCover = false;
+}
+savePhoto(){
+  this.user.photoURL = this.photoURL;
+  this.fs.updateUser("users/" + this.user.uid, {
+    photoURL: this.photoURL
+  })
+  this.editPhoto = false;
+}
+
 }

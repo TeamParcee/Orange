@@ -1,46 +1,32 @@
 <ion-header>
     <ion-toolbar color="primary">
-      <ion-buttons slot="start">
-        <ion-menu-button  style="color:white" ></ion-menu-button>
-      </ion-buttons>
+<ion-buttons slot="start">
+  <ion-back-button defaultHref="checkdn-users"></ion-back-button>
+</ion-buttons>
       <ion-title>
-        Profile
+        {{user?.displayName}}
       </ion-title>
-      <ion-buttons slot="end">
-        <ion-button href="/settings" style="color: white">
-          <ion-icon slot="icon-only" name="settings"></ion-icon>
-        </ion-button>
-      </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
 <ion-content>
   <div style="position: relative;">
     <div id="coverPic" style="background:  lightgrey; width: 100%; height: 200px; background-size: cover;">
-        <label *ngIf="!editCover" (click)="getCoverPhoto()" class="edit-btn">edit</label>
-        <label *ngIf="editCover" (click)="saveCover()" class="use-btn">use</label>
-        <label *ngIf="editCover" (click)="cancelCover()" class="cancel-btn">cancel</label>
     </div>
   </div>
   <div text-center>
       <div style="display: inline-block; position: relative; margin: -25% 0px auto;">
           <div  id="profilePic" style="background: lightgrey; height: 151px; width: 151px; border: 2px solid white">
-              <label *ngIf="!editPhoto"(click)="getProfilePhoto()" class="edit-btn" >edit</label>
-              <label *ngIf="editPhoto" (click)="savePhoto()" class="use-btn">use</label>
-              <label *ngIf="editPhoto" (click)="cancelPhoto()" class="cancel-btn">cancel</label>
+
             </div>
       </div>
   </div>
        
-          
-        <input style="display:none"  name="pic" id="pic" type="file">
-        <input style="display:none"  name="cover" id="cover" type="file">
+
       <h5 text-center>{{user?.displayName}}</h5>
       <p *ngIf="!user" class="skeleton"></p><br>
   <ion-item-group *ngIf="user">
     <ion-item-divider>Social Media
-      <p *ngIf="!edit" (click)="edit = true" slot="end">edit</p>
-      <p *ngIf="edit" (click)="save()" slot="end">save</p>
     </ion-item-divider>
       <ion-item>
           <ion-label>Facebook</ion-label>
