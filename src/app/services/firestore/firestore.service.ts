@@ -16,7 +16,12 @@ export class FirestoreService {
       })
     })
   }
-
+getNewId(col){
+  return new Promise((resolve)=>{
+    let id = firebase.firestore().collection(col).doc().id;
+    return resolve(id)
+  })
+}
   getCurrentUser() {
     return new Promise((resolve) => {
       firebase.auth().onAuthStateChanged((user) => {

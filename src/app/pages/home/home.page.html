@@ -25,15 +25,15 @@
 
   <div style="display:none" #map id="map"></div>
   <ion-list lines="none">
-        <ion-item style="margin-bottom: 15px"  *ngFor="let f of feed">
-            <ion-avatar>
-              <img src="../../../assets/imgs/photo_anonymous.png">
-            </ion-avatar>
-            <div style="max-width: 90%" text-wrap class="text_chat"> {{f.text}} <br>
-              <img style="height:100px; width:100px" src="{{img}}" *ngFor="let img of f.imgs">
-            </div>
-          </ion-item>
-   
+    <ion-item style="margin-bottom: 15px" *ngFor="let f of feed">
+      <ion-avatar>
+        <img imageViewer  src="../../../assets/imgs/photo_anonymous.png">
+      </ion-avatar>
+      <div style="max-width: 90%" text-wrap class="text_chat"> {{f.text}} <br>
+        <img style="height:100px; width:100px" src="{{img}}" *ngFor="let img of f.imgs">
+      </div>
+    </ion-item>
+
 
 
   </ion-list>
@@ -41,21 +41,22 @@
 
 
 </ion-content>
+
 <ion-footer>
   <ion-toolbar>
-    <div style=" background-color: white; padding: 5px; border-radius: 25px; 
-    width: 90%; margin:auto" contenteditable="true" id="textbox" clearInput="true">
-
-    </div>
-    <ion-buttons slot="start">
-      <ion-button (click)="getPhoto()">
-        <ion-icon style="color: white" slot="icon-only" name="image"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <label  float-left for="pic">
+      <ion-icon style="color: white" size="large" name="image"></ion-icon>
+    </label>
     <ion-buttons slot="end">
-      <ion-button (click)="send()">
-        <ion-icon style="color: white" slot="icon-only" name="send"></ion-icon>
-      </ion-button>
+        <ion-button float-right (click)="send()">
+            <ion-icon style="color: white" slot="icon-only" name="send"></ion-icon>
+          </ion-button>
     </ion-buttons>
+      <div style=" background-color: white; padding: 5px; border-radius: 25px; 
+      width: 85%; margin-left: 45px" contenteditable="true" id="textbox" >
+   </div>
+    
+
+   <input style="display:none" (change)="getPhoto($event)" accept="image/*" name="pic" id="pic" type="file">
   </ion-toolbar>
 </ion-footer>

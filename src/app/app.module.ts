@@ -12,6 +12,7 @@ import * as firebase from 'firebase';
 import { IonicStorageModule } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
+import { IonicImageViewerModule } from 'ionic-img-viewer';
 
  // Initialize Firebase
  var config = {
@@ -28,6 +29,7 @@ firebase.initializeApp(config);
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    IonicImageViewerModule,
     BrowserModule, 
     IonicModule.forRoot(),    
     IonicStorageModule.forRoot(),

@@ -1,3 +1,4 @@
+import { StorageService } from './../../services/storage/storage.service';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs';
 import { FirestoreService } from './../../services/firestore/firestore.service';
@@ -7,7 +8,6 @@ import { LocationService } from '../../services/location/location.service';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { NavController } from '@ionic/angular';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 declare var google;
 
@@ -25,7 +25,7 @@ export class HomePage {
   watch;
   imgs = [];
   constructor(
-    private camera: Camera,
+    private storage: StorageService,
     private navCtrl: NavController,
     private ls: Storage,
     private fs: FirestoreService,
@@ -65,18 +65,20 @@ export class HomePage {
 
 
   }
-  send() {
+  async send() {
     let imgsTags = document.getElementsByClassName("img");
-    let imgs = [] 
+    let imgs = [];
     for (let index = 0; index < imgsTags.length; index++) {
       let element = imgsTags[index];
-      imgs.push(element.getAttribute("src"))
-      
+      let src = element.getAttribute("src");
+      let id = await this.fs.getNewId("places");
+      let downloadURL = await this.storage.uploadFeedImage(src, this.place.placeid, id);
+      imgs.push(downloadURL);
     }
     this.imgs = imgs;
     let text = document.getElementById("textbox").innerText;
 
-    if (!text || !imgs) {
+    if (!text && !imgs) {
       return;
     }
     let message = {
@@ -119,24 +121,22 @@ export class HomePage {
   viewCheckdnUsers() {
     this.navCtrl.navigateForward("checkdn-users")
   }
-  getPhoto() {
-    let options: CameraOptions = {
-      quality: 100,
-      targetHeight: 100,
-      allowEdit: true,
-      targetWidth: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+  getPhoto(event) {
+    let uploadedPic = event.target.files[0];
+    let pic;
+    let reader = new FileReader;
+      reader.onloadend = function () {
+        pic = reader.result;
+        let img = document.createElement("img");
+        img.src = pic;
+        img.height = 100;
+        img.width = 100;
+        img.className = "img";
+        document.getElementById("textbox").appendChild(img)
     }
-    this.camera.getPicture(options).then((imageData)=>{
-      let img = document.createElement("img");
-      img.src = 'data:image/jpeg;base64,' + imageData;
-      img.className = "img";
-      document.getElementById("textbox").appendChild(img)
-
-    })
-
+    reader.readAsDataURL(uploadedPic)
+      
   }
+  
+
 }
