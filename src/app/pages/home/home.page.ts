@@ -38,35 +38,24 @@ export class HomePage {
     private geolocation: Geolocation) { }
 
   async ngOnInit() {
+    
     this.user = await this.fs.getCurrentUser();
     await this.getCurrentLocation();
   }
 
   getCurrentLocation() {
     return new Promise((resolve) => {
-      this.geolocation.getCurrentPosition().then(async (data) => {
+      this.geolocation.getCurrentPosition().then(async(data)=>{
         let place: any = await this.location.getAddress(data.coords);
-        this.ls.set('place', place);
-        let exists = await this.fs.checkExists("places/" + place.placeid);
-        if (exists) {
-          let p = await this.fs.getPlace("places/" + place.placeid);
-          this.place = p;
-          this.getFeed(place);
-        } else {
-          let p: any = await this.location.getPlaceDetails(place.placeid);
-          this.place = {
-            name: p.name,
-            address: p.formatted_address,
-            placeid: p.place_id
-          }
-          this.fs.createPlace("places/" + place.placeid, this.place);
-          this.getFeed(place);
-        }
+        this.place = place;
+        this.getFeed(place);
         this.checkUserIn(place);
-        this.getUsers(place)
-      });
-      return resolve()
-    })
+        this.getUsers(place);
+        resolve();
+      })
+   
+
+   })
 
 
   }
