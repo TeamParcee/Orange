@@ -14,6 +14,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { ImgViewerPage } from './pages/img-viewer/img-viewer.page';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
  // Initialize Firebase
  var config = {
@@ -38,6 +39,7 @@ firebase.initializeApp(config);
     StatusBar,
     SplashScreen,
     Camera,
+    InAppBrowser,
     Geolocation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     PhotoViewer,

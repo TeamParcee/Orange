@@ -113,6 +113,8 @@ export class HomePage {
 
   }
   viewCheckdnUsers() {
+    
+    this.ls.set('place', this.place);
     this.navCtrl.navigateForward("checkdn-users")
   }
   getPhoto(event) {

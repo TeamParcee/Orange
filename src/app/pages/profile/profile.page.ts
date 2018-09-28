@@ -23,8 +23,6 @@ export class ProfilePage implements OnInit {
   async ngOnInit() {
     this.user = await this.fs.getCurrentUser();
     this.getRedirect();
-    let imgCover = document.getElementById("coverPic");
-    imgCover.style.background = "url(" + this.user.coverURL + ") no-repeat center";
     let imgProfile = document.getElementById("profilePic");
     imgProfile.style.background = "url(" + this.user.photoURL + ") no-repeat center";
   }
@@ -60,24 +58,45 @@ export class ProfilePage implements OnInit {
   }
 
   getCoverPhoto() {
-    this.editCover = true;
-    let options: CameraOptions = {
-      quality: 100,
-      targetHeight: 200,
-      allowEdit: true,
-      targetWidth: 200,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-    }
-    this.camera.getPicture(options).then((imageData)=>{
-      this.coverURL = 'data:image/jpeg;base64,' + imageData;
-      let url = "url(" + 'data:image/jpeg;base64,' + imageData + ") no-repeat center";
-      let img = document.getElementById("coverPic");
-      img.style.background = url;
-    })
+    // this.editCover = true;
+    // let options: CameraOptions = {
+    //   quality: 100,
+    //   targetHeight: 200,
+    //   allowEdit: true,
+    //   targetWidth: 200,
+    //   destinationType: this.camera.DestinationType.FILE_URI,
+    //   encodingType: this.camera.EncodingType.JPEG,
+    //   mediaType: this.camera.MediaType.PICTURE,
+    //   sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    // }
+    // this.camera.getPicture(options).then((imageData)=>{
+    //   this.coverURL = 'data:image/jpeg;base64,' + imageData;
+    //   let url = "url(" + 'data:image/jpeg;base64,' + imageData + ") no-repeat center";
+    //   let img = document.getElementById("coverPic");
+    //   img.style.background = url;
+    // })
 
+  }
+
+  getPhoto(event) {
+    this.editCover = true;
+    let uploadedPic = event.target.files[0];
+    let pic;
+    let reader = new FileReader;
+      reader.onloadend =  () => {
+        pic = reader.result;
+
+        this.user.cover = pic;
+        console.log(this.user.cover)
+        // let img = document.createElement("img");
+        // img.src = pic;
+        // img.height = 100;
+        // img.width = 100;
+        // img.className = "img";
+        // document.getElementById("textbox").appendChild(img)
+    }
+    reader.readAsDataURL(uploadedPic)
+      
   }
   getProfilePhoto() {
     this.editPhoto = true;
@@ -110,9 +129,8 @@ export class ProfilePage implements OnInit {
     this.editPhoto = false;
 }
 saveCover(){
-  this.user.coverPhoto = this.coverURL;
   this.fs.updateUser("users/" + this.user.uid, {
-    coverURL: this.coverURL
+    cover: this.user.cover
   })
   this.editCover = false;
 }

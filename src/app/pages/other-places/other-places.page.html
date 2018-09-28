@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+          <ion-menu-button style="color:white"></ion-menu-button>
+        </ion-buttons>
+    <ion-title>Other Places</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list lines="full">
+    <ion-item detail (click)="gotoPlace(place)" *ngFor="let place of otherPlaces">
+      <ion-badge style="color: #34526f; background: white;" fill="clear" slot="start">
+        {{place.users}}
+      </ion-badge>
+      <ion-label>
+          {{place.name}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

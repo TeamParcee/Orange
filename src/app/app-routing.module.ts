@@ -13,7 +13,9 @@ const routes: Routes = [
   { path: 'edit-profile', loadChildren: './pages/edit-profile/edit-profile.module#EditProfilePageModule' },
   { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
   { path: 'view-profile', loadChildren: './pages/view-profile/view-profile.module#ViewProfilePageModule' },
-  { path: 'img-viewer', loadChildren: './pages/img-viewer/img-viewer.module#ImgViewerPageModule' },
+  { path: 'img-viewer', loadChildren: './pages/img-viewer/img-viewer.module#ImgViewerPageModule' },  { path: 'other-places', loadChildren: './pages/other-places/other-places.module#OtherPlacesPageModule' },
+  { path: 'view-place', loadChildren: './pages/view-place/view-place.module#ViewPlacePageModule' },
+
 ];
 
 @NgModule({

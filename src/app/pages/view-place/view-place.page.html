@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar color="primary">
+     <ion-buttons slot="start">
+       <ion-back-button defaultHref="other-places"></ion-back-button>
+     </ion-buttons>
+      <ion-title>
+        <p *ngIf="!place" class="skeleton"></p>
+        {{place?.name}}
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="viewCheckdnUsers()">
+          {{place?.users}}
+          <ion-icon slot="icon-only" name="people"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <div *ngIf="!place">
+      <p class="skeleton"></p>
+      <p class="skeleton"></p>
+      <p class="skeleton"></p>
+    </div>
+  
+    <div style="display:none" #map id="map"></div>
+    <ion-list lines="none">
+      <ion-item style="margin-bottom: 15px" *ngFor="let f of feed">
+        <ion-avatar>
+          <img src="../../../assets/imgs/photo_anonymous.png">
+        </ion-avatar>
+        <div style="max-width: 90%" text-wrap class="text_chat"> {{f.text}} <br>
+          <img style="height:100px;" (click)="viewPhoto(img)" src="{{img}}" *ngFor="let img of f.imgs">
+        </div>
+      </ion-item>
+    </ion-list>
+  
+  
+  
+  </ion-content>

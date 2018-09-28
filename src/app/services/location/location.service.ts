@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
+import { Storage } from '@ionic/storage';
 
 declare var google;
 @Injectable({
@@ -11,6 +12,7 @@ declare var google;
 export class LocationService {
 
   constructor(
+    private ls: Storage,
     private fs: FirestoreService,
     private geolocation: Geolocation
   ) { }
@@ -20,6 +22,7 @@ export class LocationService {
     return new Promise(async (resolve) => {
       let geocoder = new google.maps.Geocoder;
       let latlng = { lat: position.latitude, lng: position.longitude};
+      // let latlng = {lat: 41.2406, lng: -96.0169}
       geocoder.geocode({ 'location': latlng },  async (results, status) => {
         if (status === 'OK') {
           let splitAddress = results[0].formatted_address.split(",");
@@ -78,11 +81,20 @@ getClosePlaces(position){
     }
     let service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, (results, status)=>{
+      let otherPlaces = [];
       if (status == google.maps.places.PlacesServiceStatus.OK){
         for (var i = 0; i < results.length; i++) {
-          var place = results[i];
+          var obj = results[i];
+          
+          let place = { 
+            name: obj.name,
+            address: obj.vicinity,
+            placeid: obj.place_id
+          }
+            otherPlaces.push(place)
             this.checkPlaceExists(place)
         }
+        this.ls.set("otherPlaces", otherPlaces);
       }
       return resolve()
     });
@@ -91,15 +103,11 @@ getClosePlaces(position){
 
 }
 
-async checkPlaceExists(obj){
-  let place = {
-    name: obj.name,
-    address: obj.vicinity,
-    placeid: obj.place_id
-  }
-  let exists = await this.fs.checkExists("places/" + obj.place_id);
+async checkPlaceExists(place){
+ 
+  let exists = await this.fs.checkExists("places/" + place.palceid);
   if(!exists){
-    this.fs.createPlace("/places/" + obj.place_id, place);
+    this.fs.createPlace("/places/" + place.placeid, place);
   }
 }
 

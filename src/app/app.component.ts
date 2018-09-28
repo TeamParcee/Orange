@@ -21,6 +21,11 @@ export class AppComponent {
       url: '/profile',
       icon: 'contact'
     },
+    {
+      title: 'Other Places',
+      url: '/other-places',
+      icon: 'apps'
+    },
   ];
   constructor(
     private platform: Platform,

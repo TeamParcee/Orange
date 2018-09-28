@@ -10,10 +10,9 @@
   </ion-header>
 
 <ion-content>
-  <div style="position: relative;">
     <div id="coverPic" style="background:  lightgrey; width: 100%; height: 200px; background-size: cover;">
+        <img style="height: 200px; width: 100%"  src="{{user?.cover}}" />
     </div>
-  </div>
   <div text-center>
       <div style="display: inline-block; position: relative; margin: -25% 0px auto;">
           <div  id="profilePic" style="background: lightgrey; height: 151px; width: 151px; border: 2px solid white">
@@ -26,18 +25,15 @@
       <h5 text-center>{{user?.displayName}}</h5>
       <p *ngIf="!user" class="skeleton"></p><br>
   <ion-item-group *ngIf="user">
-    <ion-item-divider>Social Media
-    </ion-item-divider>
-      <ion-item>
+    <ion-item-divider>Social Media </ion-item-divider>
+      <ion-item detail>
           <ion-label>Facebook</ion-label>
-          <ion-input [disabled]="!edit" [(ngModel)]="user.facebook" (focus)="fbExample = true" (ionBlur)="fbExample = false"></ion-input>
+          <ion-label text-right (click)="showPage('https://facebook.com/adiontae.gerron')">{{user?.facebook}}</ion-label>
        </ion-item>
-       <p text-center *ngIf="fbExample">https://facebook.com/{{user?.facebook}}</p>
-       <ion-item>
+       <ion-item detail>
           <ion-label>Instagram</ion-label>
-          <ion-input  [disabled]="!edit"  [(ngModel)]="user.instagram" (focus)="instaExample = true" (ionBlur)="instaExample = false"></ion-input>
+          <ion-label text-right (click)="showPage('https://instagram.com/adiontae')">{{user?.instagram}}</ion-label>
        </ion-item>
-       <p text-center *ngIf="instaExample">https://instagram.com/{{user?.instagram}}</p>
        <ion-item lines="none"></ion-item>
   </ion-item-group>
  
