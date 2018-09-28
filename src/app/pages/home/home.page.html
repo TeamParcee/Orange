@@ -27,15 +27,12 @@
   <ion-list lines="none">
     <ion-item style="margin-bottom: 15px" *ngFor="let f of feed">
       <ion-avatar>
-        <img imageViewer  src="../../../assets/imgs/photo_anonymous.png">
+        <img src="../../../assets/imgs/photo_anonymous.png">
       </ion-avatar>
       <div style="max-width: 90%" text-wrap class="text_chat"> {{f.text}} <br>
-        <img style="height:100px; width:100px" src="{{img}}" *ngFor="let img of f.imgs">
+        <img style="height:100px;" (click)="viewPhoto(img)" src="{{img}}" *ngFor="let img of f.imgs">
       </div>
     </ion-item>
-
-
-
   </ion-list>
 
 
@@ -44,9 +41,9 @@
 
 <ion-footer>
   <ion-toolbar>
-    <label  float-left for="pic">
+   <!-- <label  float-left for="pic">
       <ion-icon style="color: white" size="large" name="image"></ion-icon>
-    </label>
+    </label> -->
     <ion-buttons slot="end">
         <ion-button float-right (click)="send()">
             <ion-icon style="color: white" slot="icon-only" name="send"></ion-icon>

@@ -12,7 +12,8 @@ import * as firebase from 'firebase';
 import { IonicStorageModule } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
-import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { ImgViewerPage } from './pages/img-viewer/img-viewer.page';
 
  // Initialize Firebase
  var config = {
@@ -26,10 +27,9 @@ import { IonicImageViewerModule } from 'ionic-img-viewer';
 firebase.initializeApp(config);
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, ImgViewerPage], 
+  entryComponents: [ImgViewerPage],
   imports: [
-    IonicImageViewerModule,
     BrowserModule, 
     IonicModule.forRoot(),    
     IonicStorageModule.forRoot(),
@@ -39,7 +39,8 @@ firebase.initializeApp(config);
     SplashScreen,
     Camera,
     Geolocation,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    PhotoViewer,
   ],
   bootstrap: [AppComponent]
 })

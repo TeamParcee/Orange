@@ -11,7 +11,7 @@ export class StorageService {
 
   uploadFeedImage(file, place, id){
     return new Promise((resolve)=>{
-      this.storageRef.child('feed/imgs/' + place + "/" + id).put(file).then((snapshot)=>{
+      this.storageRef.child('feed/imgs/' + place + "/" + id).putString(file, 'data_url').then((snapshot)=>{
         snapshot.ref.getDownloadURL().then((url)=>{
           return resolve(url)
         })

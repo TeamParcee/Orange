@@ -7,7 +7,9 @@ import { Geolocation, GeolocationOptions, Geoposition } from '@ionic-native/geol
 import { LocationService } from '../../services/location/location.service';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { ImgViewerPage } from '../img-viewer/img-viewer.page';
 
 declare var google;
 
@@ -24,7 +26,10 @@ export class HomePage {
   feed;
   watch;
   imgs = [];
+  imgFiles = [];
   constructor(
+    private modalCtrl: ModalController,
+    private photoViewer: PhotoViewer,
     private storage: StorageService,
     private navCtrl: NavController,
     private ls: Storage,
@@ -122,6 +127,7 @@ export class HomePage {
     this.navCtrl.navigateForward("checkdn-users")
   }
   getPhoto(event) {
+
     let uploadedPic = event.target.files[0];
     let pic;
     let reader = new FileReader;
@@ -138,5 +144,12 @@ export class HomePage {
       
   }
   
-
+async viewPhoto(url){
+  //this.photoViewer.show(url);
+  let modal = await this.modalCtrl.create({
+    component: ImgViewerPage,
+  });
+  this.ls.set("img", url);
+  return await modal.present();
+}
 }
