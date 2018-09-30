@@ -15,6 +15,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { ImgViewerPage } from './pages/img-viewer/img-viewer.page';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { IonicImageLoader } from 'ionic-image-loader';
 
  // Initialize Firebase
  var config = {
@@ -32,7 +33,8 @@ firebase.initializeApp(config);
   entryComponents: [ImgViewerPage],
   imports: [
     BrowserModule, 
-    IonicModule.forRoot(),    
+    IonicModule.forRoot(),  
+    IonicImageLoader.forRoot(),  
     IonicStorageModule.forRoot(),
     AppRoutingModule],
   providers: [

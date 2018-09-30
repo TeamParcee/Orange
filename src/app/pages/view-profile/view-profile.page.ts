@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../services/firestore/firestore.service';
 import { ActivatedRoute } from '@angular/router';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
+import { NavController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-view-profile',
@@ -15,6 +17,8 @@ export class ViewProfilePage implements OnInit {
 
   constructor(
     private iab: InAppBrowser,
+    private ls: Storage,
+    private navCtrl: NavController,
     private fs: FirestoreService,
     private route: ActivatedRoute,
   ) {
@@ -24,20 +28,9 @@ export class ViewProfilePage implements OnInit {
   async ngOnInit() {
     this.uid = await this.route.snapshot.paramMap.get('id');
     this.user = await this.fs.getUser(this.uid);
-    let imgCover = document.getElementById("coverPic");
-    imgCover.style.background = "url(" + this.user.coverURL + ") no-repeat center";
-    let imgProfile = document.getElementById("profilePic");
-    imgProfile.style.background = "url(" + this.user.photoURL + ") no-repeat center";
   }
 
   showPage(url){
-    let options: InAppBrowserOptions = {
-      location: 'yes',
-      hardwareback: 'yes',
-      toolbarcolor: '#34526f',
-      toolbarposition: 'top',
-      
-    }
-    this.iab.create(url, "_self", options).show()
+    this.iab.create(url, "_self").show();
   }
 }

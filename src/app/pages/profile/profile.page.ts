@@ -57,26 +57,7 @@ export class ProfilePage implements OnInit {
     this.edit = false;
   }
 
-  getCoverPhoto() {
-    // this.editCover = true;
-    // let options: CameraOptions = {
-    //   quality: 100,
-    //   targetHeight: 200,
-    //   allowEdit: true,
-    //   targetWidth: 200,
-    //   destinationType: this.camera.DestinationType.FILE_URI,
-    //   encodingType: this.camera.EncodingType.JPEG,
-    //   mediaType: this.camera.MediaType.PICTURE,
-    //   sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-    // }
-    // this.camera.getPicture(options).then((imageData)=>{
-    //   this.coverURL = 'data:image/jpeg;base64,' + imageData;
-    //   let url = "url(" + 'data:image/jpeg;base64,' + imageData + ") no-repeat center";
-    //   let img = document.getElementById("coverPic");
-    //   img.style.background = url;
-    // })
 
-  }
 
   getPhoto(event) {
     this.editCover = true;
@@ -87,36 +68,21 @@ export class ProfilePage implements OnInit {
         pic = reader.result;
 
         this.user.cover = pic;
-        console.log(this.user.cover)
-        // let img = document.createElement("img");
-        // img.src = pic;
-        // img.height = 100;
-        // img.width = 100;
-        // img.className = "img";
-        // document.getElementById("textbox").appendChild(img)
     }
     reader.readAsDataURL(uploadedPic)
       
   }
-  getProfilePhoto() {
+  getProfilePhoto(event) {
     this.editPhoto = true;
-    let options: CameraOptions = {
-      quality: 100,
-      targetHeight: 151,
-      allowEdit: true,
-      targetWidth: 151,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    let uploadedPic = event.target.files[0];
+    let pic;
+    let reader = new FileReader;
+      reader.onloadend =  () => {
+        pic = reader.result;
+        this.user.photoURL = pic;
+        console.log(this.user.photoURL)
     }
-    this.camera.getPicture(options).then((imageData)=>{
-      this.photoURL = 'data:image/jpeg;base64,' + imageData;
-      let url = "url(" + 'data:image/jpeg;base64,' + imageData + ") no-repeat center";
-      let img = document.getElementById("profilePic");
-      img.style.background = url;
-    })
-
+    reader.readAsDataURL(uploadedPic);
   }
   cancelCover(){
       let img = document.getElementById("coverPic");
@@ -135,9 +101,8 @@ saveCover(){
   this.editCover = false;
 }
 savePhoto(){
-  this.user.photoURL = this.photoURL;
   this.fs.updateUser("users/" + this.user.uid, {
-    photoURL: this.photoURL
+    photoURL: this.user.photoURL
   })
   this.editPhoto = false;
 }

@@ -5,13 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ViewProfilePage } from './view-profile.page';
-import { IonicImageLoader } from 'ionic-image-loader';
+import { InappbrowserPage } from './inappbrowser.page';
 
 const routes: Routes = [
   {
-    path: ':id',
-    component: ViewProfilePage
+    path: '',
+    component: InappbrowserPage
   }
 ];
 
@@ -20,9 +19,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    IonicImageLoader,
     RouterModule.forChild(routes)
   ],
-  declarations: [ViewProfilePage]
+  declarations: [InappbrowserPage]
 })
-export class ViewProfilePageModule {}
+export class InappbrowserPageModule {}

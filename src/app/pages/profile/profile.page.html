@@ -17,7 +17,7 @@
 <ion-content>
   <div style="position: relative;">
     <div id="coverPic" style="background:  lightgrey; width: 100%; height: 200px; background-size: cover;">
-        <img style="height: 200px; width: 100%" *ngIf="user.cover" src="{{user?.cover}}" />
+        <img style="height: 200px; width: 100%" src="{{user?.cover}}" />
         <label *ngIf="!editCover" class="edit-btn" for="cover">edit</label>
         <input (change)="getPhoto($event)" style="display: none" id="cover" name="cover" type="file">
         <label *ngIf="editCover" (click)="saveCover()" class="use-btn">use</label>
@@ -27,7 +27,9 @@
   <div text-center>
       <div style="display: inline-block; position: relative; margin: -25% 0px auto;">
           <div  id="profilePic" style="background: lightgrey; height: 151px; width: 151px; border: 2px solid white">
-              <label *ngIf="!editPhoto"(click)="getProfilePhoto()" class="edit-btn" >edit</label>
+              <img style="height: 151px; width: 151px" src="{{user?.photoURL}}" />
+              <label *ngIf="!editPhoto" class="edit-btn" for="photo">edit</label>
+              <input (change)="getProfilePhoto($event)" style="display: none" id="photo" name="photo" type="file">
               <label *ngIf="editPhoto" (click)="savePhoto()" class="use-btn">use</label>
               <label *ngIf="editPhoto" (click)="cancelPhoto()" class="cancel-btn">cancel</label>
             </div>
