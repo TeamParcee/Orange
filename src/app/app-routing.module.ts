@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'img-viewer', loadChildren: './pages/img-viewer/img-viewer.module#ImgViewerPageModule' },  { path: 'other-places', loadChildren: './pages/other-places/other-places.module#OtherPlacesPageModule' },
   { path: 'view-place', loadChildren: './pages/view-place/view-place.module#ViewPlacePageModule' },
   { path: 'inappbrowser', loadChildren: './pages/inappbrowser/inappbrowser.module#InappbrowserPageModule' },
+  { path: 'saved-checkdns', loadChildren: './pages/saved-checkdns/saved-checkdns.module#SavedCheckdnsPageModule' },
 
 ];
 

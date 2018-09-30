@@ -26,6 +26,11 @@ export class AppComponent {
       url: '/other-places',
       icon: 'apps'
     },
+    {
+      title: 'Saved Locations',
+      url: '/saved-checkdns',
+      icon: 'star'
+    },
   ];
   constructor(
     private platform: Platform,

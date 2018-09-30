@@ -89,8 +89,16 @@ getNewId(col){
   deleteCurrentUser(uid){
     firebase.firestore().doc("/users/" + uid).delete();
   }
-
-  updateUser(doc, obj){
+  deleteObj(doc){
+    firebase.firestore().doc(doc).delete();
+  }
+  updateObj(doc, obj){
     firebase.firestore().doc(doc).update(obj)
+  }
+  setObj(doc, obj){
+    return new Promise((resolve)=>{
+      firebase.firestore().doc(doc).set(obj);
+      resolve()
+    })
   }
 }

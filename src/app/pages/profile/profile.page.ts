@@ -53,7 +53,7 @@ export class ProfilePage implements OnInit {
     this.navCtrl.navigateForward("edit-profile")
   }
   save(){
-    this.fs.updateUser("users/" + this.user.uid, this.user);
+    this.fs.updateObj("users/" + this.user.uid, this.user);
     this.edit = false;
   }
 
@@ -95,13 +95,13 @@ export class ProfilePage implements OnInit {
     this.editPhoto = false;
 }
 saveCover(){
-  this.fs.updateUser("users/" + this.user.uid, {
+  this.fs.updateObj("users/" + this.user.uid, {
     cover: this.user.cover
   })
   this.editCover = false;
 }
 savePhoto(){
-  this.fs.updateUser("users/" + this.user.uid, {
+  this.fs.updateObj("users/" + this.user.uid, {
     photoURL: this.user.photoURL
   })
   this.editPhoto = false;

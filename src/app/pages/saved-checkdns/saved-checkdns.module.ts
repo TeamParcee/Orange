@@ -5,12 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ViewProfilePage } from './view-profile.page';
+import { SavedCheckdnsPage } from './saved-checkdns.page';
 
 const routes: Routes = [
   {
-    path: ':id',
-    component: ViewProfilePage
+    path: '',
+    component: SavedCheckdnsPage
   }
 ];
 
@@ -21,6 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ViewProfilePage]
+  declarations: [SavedCheckdnsPage]
 })
-export class ViewProfilePageModule {}
+export class SavedCheckdnsPageModule {}
