@@ -104,7 +104,9 @@ export class HomePage {
 
   }
   checkUserIn(place) {
-    this.fs.deleteObj("/places/" + this.user.checkdn.placeid);
+    if(this.user.checkdn){
+      this.fs.deleteObj("/places/" + this.user.checkdn.placeid);
+    }
     this.fs.updateObj("/users/" + this.user.uid, { checkdn: place });
     this.fs.checkUserIn("places/" + place.placeid + "/users/" + this.user.uid, this.user.uid)
   }

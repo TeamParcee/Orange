@@ -3,7 +3,7 @@
     <name>Checkdn</name>
     <description>An awesome Team Parcee app.</description>
     <author email="team.parcee@gmail.com" href="http://parcee.com/">Team Parcee</author>
-    <content original-src="index.html" src="http://192.168.1.26:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -85,8 +85,6 @@
     <plugin name="com-sarriaroman-photoviewer" spec="^1.1.18" />
     <allow-navigation href="http://192.168.0.9:8100" sessionid="2f1d5ce7" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
-    <allow-navigation href="http://192.168.1.30:8100" sessionid="53fa7ac7" />
-    <allow-navigation href="http://192.168.1.26:8100" sessionid="e9b6441c" />
     <engine name="browser" spec="5.0.4" />
     <engine name="ios" spec="4.5.5" />
 </widget>

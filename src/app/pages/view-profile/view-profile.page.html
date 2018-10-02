@@ -28,11 +28,11 @@
     <ion-item-divider>Social Media </ion-item-divider>
       <ion-item detail>
           <ion-label>Facebook</ion-label>
-          <ion-label text-right (click)="showPage('https://facebook.com/adiontae.gerron')">{{user?.facebook}}</ion-label>
+          <ion-label text-right (click)="showPage('https://facebook.com/' + user?.facebook)">{{user?.facebook}}</ion-label>
        </ion-item>
        <ion-item detail>
           <ion-label>Instagram</ion-label>
-          <ion-label text-right (click)="showPage('https://instagram.com/adiontae')">{{user?.instagram}}</ion-label>
+          <ion-label text-right (click)="showPage('https://instagram.com/' + user?.instagram)">{{user?.instagram}}</ion-label>
        </ion-item>
        <ion-item lines="none"></ion-item>
   </ion-item-group>
