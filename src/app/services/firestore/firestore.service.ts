@@ -65,8 +65,8 @@ getNewId(col){
         })
     })
   }
-  checkUserIn(doc, uid) {
-    firebase.firestore().doc(doc).set({ uid: uid })
+  checkUserIn(doc, obj) {
+    firebase.firestore().doc(doc).set(obj)
   }
   checkUserOut(doc, uid) {
     firebase.firestore().doc(doc).delete()

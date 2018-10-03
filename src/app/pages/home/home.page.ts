@@ -21,6 +21,9 @@ declare var google;
 })
 export class HomePage {
 
+  vibes: any;
+  vibe;
+  accuracy = 0;
   place;
   text;
   user;
@@ -28,6 +31,7 @@ export class HomePage {
   watch;
   imgs = [];
   imgFiles = [];
+  subscription;
   constructor(
     private router: Router,
     private modalCtrl: ModalController,
@@ -40,23 +44,43 @@ export class HomePage {
     private geolocation: Geolocation) { }
 
   async ngOnInit() {
-
+   
+    this.place = await this.ls.get('cacheplace');
     this.user = await this.fs.getCurrentUser();
+    if(!this.user.gender){
+      this.navCtrl.navigateBack("gender")
+    }
     await this.getCurrentLocation();
     this.checkPlaceSave();
+    this.getVibes();
   }
-
+async ngOnDestroy() {
+  this.subscription.unsubscribe();
+}
   getCurrentLocation() {
-    return new Promise((resolve) => {
-      this.geolocation.getCurrentPosition().then(async (data) => {
-        let place: any = await this.location.getAddress(data.coords);
-        this.place = place;
-        this.getFeed(place);
-        this.checkUserIn(place);
-        this.getUsers(place);
-        resolve();
-      })
-    })
+    let options: GeolocationOptions = {
+      //maximumAge: 900000
+      maximumAge: 900
+    }
+    this.subscription = this.geolocation.watchPosition(options)
+                .subscribe(data => {
+                  if(data.coords.accuracy > this.accuracy){
+                    this.accuracy = data.coords.accuracy;
+                    this.ls.set("location", data);
+                    this.geolocation.getCurrentPosition().then(async (data) => {
+                      let place: any = await this.location.getAddress(data.coords);
+                      this.place = place;
+                      this.ls.set('cacheplace', place);
+                      this.getFeed(place);
+                      this.checkUserIn(place);
+                      this.getUsers(place);
+                      // resolve();
+                    })
+                  }
+                  
+        });
+
+
   }
   async send() {
     let imgsTags = document.getElementsByClassName("img");
@@ -93,7 +117,7 @@ export class HomePage {
   getFeed(place) {
     firebase.firestore().collection("/places/" + place.placeid + "/feed/")
       .orderBy("timestamp", "desc")
-      .limit(15)
+      .limit(10)
       .onSnapshot((feedSnap) => {
         let feed = [];
         feedSnap.forEach((message) => {
@@ -108,15 +132,24 @@ export class HomePage {
       this.fs.deleteObj("/places/" + this.user.checkdn.placeid);
     }
     this.fs.updateObj("/users/" + this.user.uid, { checkdn: place });
-    this.fs.checkUserIn("places/" + place.placeid + "/users/" + this.user.uid, this.user.uid)
+    this.fs.checkUserIn("places/" + place.placeid + "/users/" + this.user.uid, {uid: this.user.uid, gender: this.user.gender})
   }
   getUsers(place) {
     firebase.firestore().collection("/places/" + place.placeid + "/users/")
       .onSnapshot((userSnap) => {
         this.place.users = userSnap.size;
       })
+      firebase.firestore().collection("/places/" + place.placeid + "/users/")
+      .where("gender", "==", "male")
+      .onSnapshot((menSnap) => {
+        this.place.men = menSnap.size;
+      })
+      firebase.firestore().collection("/places/" + place.placeid + "/users/")
+      .where("gender", "==", "female")
+      .onSnapshot((womenSnap) => {
+        this.place.women = womenSnap.size;
+      })
     this.fs.removeOnLogOff(this.user.uid, this.place.placeid);
-
   }
   viewCheckdnUsers() {
 
@@ -168,5 +201,23 @@ export class HomePage {
   }
   viewProfilePage(uid){
     this.router.navigate(['view-profile', uid,]);
+  }
+  setVibe(vibe){
+    this.fs.setObj("/places/" + this.place.placeid + "/vibes/" + this.user.uid, {vibe: vibe});
+  }
+  getVibes(){
+    firebase.firestore().collection("/places/" + this.place.placeid + "/vibes/")
+    .onSnapshot(async (vibeSnap)=>{
+      let goodVibes:any = await vibeSnap.query.where("vibe", "==", "good").get();
+      let badVibes:any = await vibeSnap.query.where("vibe", "==", "bad").get();
+      let vibes = goodVibes.size - badVibes.size;
+      this.vibes = (vibes) ? vibes : 0;
+    })
+  }
+  getUserVibe(){
+    firebase.firestore().doc("/places/" + this.place.placeid + "/vibes/" + this.user.uid)
+    .onSnapshot((vibeSnap)=>{
+      
+    })
   }
 }

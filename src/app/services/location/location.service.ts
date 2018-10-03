@@ -30,13 +30,13 @@ export class LocationService {
           var address = {
             address: addressComponent[0].long_name + " " + addressComponent[1].long_name + "," + splitAddress[1],
             placeid: results[0].place_id,
-          }
+          } 
 
           await this.getClosePlaces(latlng);
           let place = await this.getPlaceDetails(address);
           return resolve(place)
         } else {
-          window.alert('No results found');
+          console.log(status)
         }
 
       })
@@ -89,7 +89,7 @@ getClosePlaces(position){
           let place = { 
             name: obj.name,
             address: obj.vicinity,
-            placeid: obj.place_id
+            placeid: obj.place_id,
           }
             otherPlaces.push(place)
             this.checkPlaceExists(place)

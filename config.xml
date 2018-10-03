@@ -85,6 +85,7 @@
     <plugin name="com-sarriaroman-photoviewer" spec="^1.1.18" />
     <allow-navigation href="http://192.168.0.9:8100" sessionid="2f1d5ce7" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
+    <allow-navigation href="http://192.168.1.26:8101" sessionid="1c5ea8ca" />
     <engine name="browser" spec="5.0.4" />
     <engine name="ios" spec="4.5.5" />
 </widget>

@@ -21,9 +21,31 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
+<div padding style="border-bottom: 2px solid grey;">
+   <ion-row>
+     <ion-col>Women: {{place.women}}</ion-col>
+     <ion-col>Men: {{place.men}}</ion-col>
+     <ion-col>Vibe: 
+       <ion-icon name="flame"></ion-icon>
+       <ion-icon name="flame"></ion-icon>
+       <ion-icon name="flame"></ion-icon>
+    </ion-col>
+   </ion-row>
+   <ion-row style="vertical-align: middle">
+     <ion-col>Whats the vibe?</ion-col>
+     <ion-col>
+          <ion-icon *ngIf="vibe != 'good'" (click)="vibe = 'good'; setVibe('good')" style="font-size: 25px"  name="thumbs-up"></ion-icon>
+          <ion-icon *ngIf="vibe == 'good'" style="color: green; font-size: 25px"   name="thumbs-up"></ion-icon>
+     </ion-col>
+     <ion-col>
+            <ion-icon *ngIf="vibe != 'bad'" (click)="vibe = 'bad'; setVibe('bad')" style="font-size: 25px; "  name="thumbs-down"></ion-icon>
+            <ion-icon *ngIf="vibe == 'bad'" style="color: red; font-size: 25px"  name="thumbs-down"></ion-icon>
+    </ion-col>
+   </ion-row>
+  </div>
 <ion-content padding>
-  <div *ngIf="!place">
+
+  <div *ngIf="!place.users">
     <p class="skeleton"></p>
     <p class="skeleton"></p>
     <p class="skeleton"></p>

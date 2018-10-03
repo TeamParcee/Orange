@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Gender</ion-title>
+    <ion-buttons slot="end">
+        <ion-button (click)="save()" [disabled]="!gender">
+            Save
+          </ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+<ion-row style="margin-top: 100px"  text-center>
+  <ion-col>
+    <ion-icon (click)="gender = 'male'" *ngIf="gender != 'male'" style="font-size: 150px" name="man"></ion-icon>
+    <ion-icon *ngIf="gender == 'male'" color="primary" style="font-size: 150px" name="man"></ion-icon>
+  </ion-col>
+  <ion-col>
+      <ion-icon (click)="gender = 'female'" *ngIf="gender != 'female'" style="font-size: 150px" name="woman"></ion-icon>
+      <ion-icon *ngIf="gender == 'female'" color="primary" style="font-size: 150px" name="woman"></ion-icon>
+    </ion-col>
+</ion-row>
+</ion-content>
