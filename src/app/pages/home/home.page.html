@@ -26,9 +26,9 @@
      <ion-col>Women: {{place.women}}</ion-col>
      <ion-col>Men: {{place.men}}</ion-col>
      <ion-col>Vibe: 
-       <ion-icon name="flame"></ion-icon>
-       <ion-icon name="flame"></ion-icon>
-       <ion-icon name="flame"></ion-icon>
+       <ion-icon *ngIf="vibes> 0" style="color: red" name="flame"></ion-icon>
+       <ion-icon *ngIf="vibes > 5" style="color: red" name="flame"></ion-icon>
+       <ion-icon *ngIf="vibes > 10" style="color: red" name="flame"></ion-icon>
     </ion-col>
    </ion-row>
    <ion-row style="vertical-align: middle">

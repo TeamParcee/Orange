@@ -53,6 +53,7 @@ export class HomePage {
     await this.getCurrentLocation();
     this.checkPlaceSave();
     this.getVibes();
+    this.getUserVibe();
   }
 async ngOnDestroy() {
   this.subscription.unsubscribe();
@@ -216,8 +217,11 @@ async ngOnDestroy() {
   }
   getUserVibe(){
     firebase.firestore().doc("/places/" + this.place.placeid + "/vibes/" + this.user.uid)
-    .onSnapshot((vibeSnap)=>{
-      
+    .onSnapshot(async (vibeSnap)=>{
+      if(vibeSnap.exists){
+        this.vibe = vibeSnap.data().vibec;
+        console.log("xxx", this.vibe)
+      }
     })
   }
 }
